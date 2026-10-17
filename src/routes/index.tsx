@@ -18,7 +18,7 @@ function Home() {
 						Tanah Batak, Sumatera Utara
 					</p>
 					<h1 className="display-title mt-4 text-4xl font-bold leading-tight sm:text-6xl">
-						Horas! Selamat datang di <span className="text-[#bff3e6]">Ekraf Toba</span>
+						Horas! Selamat datang di <span className="text-[#ffd98a]">Ekraf Toba</span>
 					</h1>
 					<p className="mt-3 text-sm leading-7 text-white/85 sm:text-base">
 						Dashboard untuk mengenal Danau Toba dan mengelola produk ekonomi kreatif lokal — dari
@@ -58,7 +58,7 @@ function Home() {
 					/>
 					<path
 						d="M0 205 Q150 185 300 205 T600 205 T900 205 T1200 205 V220 H0Z"
-						fill="rgba(191,243,230,0.35)"
+						fill="rgba(186,224,255,0.4)"
 					/>
 				</svg>
 				<div className="auth-orb auth-orb-a opacity-60" />

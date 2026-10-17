@@ -7,25 +7,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	--sea-ink: #173a40;
-	--sea-ink-soft: #416166;
-	--lagoon: #4fb8b2;
-	--lagoon-deep: #328f97;
-	--palm: #2f6a4a;
-	--sand: #e7f0e8;
-	--foam: #f3faf5;
+	--sea-ink: #12263f;
+	--sea-ink-soft: #3d5673;
+	--lagoon: #3b8fd6;
+	--lagoon-deep: #1d5fa8;
+	--palm: #1e4f8f;
+	--sand: #eaf2fb;
+	--foam: #f4f8fd;
 	--surface: rgba(255, 255, 255, 0.74);
 	--surface-strong: rgba(255, 255, 255, 0.9);
-	--line: rgba(23, 58, 64, 0.14);
+	--line: rgba(18, 38, 63, 0.14);
 	--inset-glint: rgba(255, 255, 255, 0.82);
-	--kicker: rgba(47, 106, 74, 0.9);
-	--bg-base: #e7f3ec;
-	--header-bg: rgba(251, 255, 248, 0.84);
+	--kicker: #b3262e;
+	--bg-base: #e6eff9;
+	--header-bg: rgba(247, 251, 255, 0.86);
 	--chip-bg: rgba(255, 255, 255, 0.8);
-	--chip-line: rgba(47, 106, 74, 0.18);
+	--chip-line: rgba(29, 95, 168, 0.2);
 	--link-bg-hover: rgba(255, 255, 255, 0.9);
-	--hero-a: rgba(79, 184, 178, 0.36);
-	--hero-b: rgba(47, 106, 74, 0.2);
+	--hero-a: rgba(59, 143, 214, 0.34);
+	--hero-b: rgba(214, 90, 70, 0.14);
 
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.141 0.005 285.823);
@@ -63,25 +63,25 @@
 }
 
 .dark {
-	--sea-ink: #d7ece8;
-	--sea-ink-soft: #afcdc8;
-	--lagoon: #60d7cf;
-	--lagoon-deep: #8de5db;
-	--palm: #6ec89a;
-	--sand: #0f1a1e;
-	--foam: #101d22;
-	--surface: rgba(16, 30, 34, 0.8);
-	--surface-strong: rgba(15, 27, 31, 0.92);
-	--line: rgba(141, 229, 219, 0.18);
-	--inset-glint: rgba(194, 247, 238, 0.14);
-	--kicker: #b8efe5;
-	--bg-base: #0a1418;
-	--header-bg: rgba(10, 20, 24, 0.8);
-	--chip-bg: rgba(13, 28, 32, 0.9);
-	--chip-line: rgba(141, 229, 219, 0.24);
-	--link-bg-hover: rgba(24, 44, 49, 0.8);
-	--hero-a: rgba(96, 215, 207, 0.18);
-	--hero-b: rgba(110, 200, 154, 0.12);
+	--sea-ink: #e1ecf8;
+	--sea-ink-soft: #a9c0da;
+	--lagoon: #5aa9ee;
+	--lagoon-deep: #8cc4f7;
+	--palm: #4a86c9;
+	--sand: #0c1626;
+	--foam: #0d1a2b;
+	--surface: rgba(14, 27, 45, 0.8);
+	--surface-strong: rgba(12, 23, 40, 0.92);
+	--line: rgba(140, 196, 247, 0.18);
+	--inset-glint: rgba(180, 215, 250, 0.14);
+	--kicker: #f2c46d;
+	--bg-base: #08111e;
+	--header-bg: rgba(8, 17, 30, 0.8);
+	--chip-bg: rgba(12, 25, 42, 0.9);
+	--chip-line: rgba(140, 196, 247, 0.24);
+	--link-bg-hover: rgba(22, 40, 66, 0.8);
+	--hero-a: rgba(90, 169, 238, 0.18);
+	--hero-b: rgba(200, 80, 60, 0.12);
 
 	--background: oklch(0.141 0.005 285.823);
 	--foreground: oklch(0.985 0 0);
@@ -170,7 +170,7 @@ body {
 	background-color: var(--bg-base);
 	background: radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
 		radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
-		radial-gradient(720px 380px at 50% 115%, rgba(79, 184, 178, 0.1), transparent 68%),
+		radial-gradient(720px 380px at 50% 115%, rgba(59, 143, 214, 0.12), transparent 68%),
 		linear-gradient(
 			180deg,
 			color-mix(in oklab, var(--sand) 68%, white) 0%,
@@ -190,8 +190,8 @@ body::before {
 	z-index: -1;
 	opacity: 0.28;
 	background: radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.8), transparent 34%),
-		radial-gradient(circle at 78% 26%, rgba(79, 184, 178, 0.2), transparent 42%),
-		radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
+		radial-gradient(circle at 78% 26%, rgba(59, 143, 214, 0.2), transparent 42%),
+		radial-gradient(circle at 42% 82%, rgba(30, 79, 143, 0.14), transparent 36%);
 }
 
 body::after {
@@ -209,13 +209,17 @@ body::after {
 
 a {
 	color: var(--lagoon-deep);
-	text-decoration-color: rgba(50, 143, 151, 0.4);
+	text-decoration-color: rgba(29, 95, 168, 0.4);
 	text-decoration-thickness: 1px;
 	text-underline-offset: 2px;
 }
 
 a:hover {
-	color: #246f76;
+	color: #14477d;
+}
+
+.dark a:hover {
+	color: #b9dcff;
 }
 
 code {
@@ -254,8 +258,8 @@ pre code {
 .island-shell {
 	border: 1px solid var(--line);
 	background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 22px 44px rgba(30, 90, 72, 0.1), 0 6px 18px
-		rgba(23, 58, 64, 0.08);
+	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 22px 44px rgba(20, 60, 110, 0.1), 0 6px 18px
+		rgba(18, 38, 63, 0.08);
 	backdrop-filter: blur(4px);
 }
 
@@ -265,8 +269,8 @@ pre code {
 		color-mix(in oklab, var(--surface-strong) 93%, white 7%),
 		var(--surface)
 	);
-	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 18px 34px rgba(30, 90, 72, 0.1), 0 4px 14px
-		rgba(23, 58, 64, 0.06);
+	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 18px 34px rgba(20, 60, 110, 0.1), 0 4px 14px
+		rgba(18, 38, 63, 0.06);
 }
 
 .feature-card:hover {
@@ -304,7 +308,7 @@ a {
 	height: 2px;
 	transform: scaleX(0);
 	transform-origin: left;
-	background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+	background: linear-gradient(90deg, var(--lagoon), #e3a935);
 	transition: transform 170ms ease;
 }
 
@@ -360,7 +364,7 @@ a {
 	overflow: hidden;
 	padding: 3rem;
 	color: #fff;
-	background: linear-gradient(145deg, #1f6f6b 0%, #2f6a4a 55%, #173a40 100%);
+	background: linear-gradient(145deg, #2b7fcb 0%, #1d4f91 55%, #0f2745 100%);
 }
 @media (min-width: 1024px) {
 	.auth-brand {
@@ -378,7 +382,7 @@ a {
 	height: 380px;
 	top: -120px;
 	right: -100px;
-	background: radial-gradient(circle at 30% 30%, rgba(126, 211, 191, 0.55), transparent 70%);
+	background: radial-gradient(circle at 30% 30%, rgba(150, 205, 250, 0.55), transparent 70%);
 	animation: orb-float 9s ease-in-out infinite;
 }
 .auth-orb-b {
@@ -386,7 +390,7 @@ a {
 	height: 300px;
 	bottom: -90px;
 	left: -80px;
-	background: radial-gradient(circle at 60% 40%, rgba(79, 184, 178, 0.5), transparent 70%);
+	background: radial-gradient(circle at 60% 40%, rgba(59, 143, 214, 0.5), transparent 70%);
 	animation: orb-float 11s ease-in-out infinite reverse;
 }
 .auth-orb-c {
@@ -420,8 +424,8 @@ a {
 	border-radius: 1.5rem;
 	border: 1px solid var(--line);
 	background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 28px 60px rgba(30, 90, 72, 0.14),
-		0 6px 18px rgba(23, 58, 64, 0.08);
+	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 28px 60px rgba(20, 60, 110, 0.14),
+		0 6px 18px rgba(18, 38, 63, 0.08);
 	backdrop-filter: blur(6px);
 }
 .auth-tabs {
@@ -442,7 +446,7 @@ a {
 .auth-tabs button.is-active {
 	background: var(--surface-strong);
 	color: var(--sea-ink);
-	box-shadow: 0 2px 8px rgba(23, 58, 64, 0.12);
+	box-shadow: 0 2px 8px rgba(18, 38, 63, 0.12);
 }
 .auth-input {
 	width: 100%;
@@ -473,12 +477,12 @@ a {
 	border-radius: 0.9rem;
 	font-weight: 700;
 	color: #fff;
-	background: linear-gradient(135deg, #3aa8a1, #2f6a4a);
-	box-shadow: 0 10px 24px rgba(47, 106, 74, 0.3);
+	background: linear-gradient(135deg, #2f86d6, #1d4f91);
+	box-shadow: 0 10px 24px rgba(29, 79, 145, 0.3);
 }
 .auth-submit:hover:not(:disabled) {
 	transform: translateY(-1px);
-	box-shadow: 0 14px 28px rgba(47, 106, 74, 0.36);
+	box-shadow: 0 14px 28px rgba(29, 79, 145, 0.36);
 }
 .auth-submit:disabled {
 	opacity: 0.7;
@@ -492,8 +496,9 @@ a {
 	padding: 2rem;
 	border-radius: 1.5rem;
 	color: #fff;
-	background: linear-gradient(135deg, #2a8f8a 0%, #2f6a4a 60%, #173a40 100%);
-	box-shadow: 0 24px 48px rgba(30, 90, 72, 0.22);
+	background: linear-gradient(135deg, rgba(47, 134, 214, 0.86) 0%, rgba(29, 79, 145, 0.84) 52%, rgba(15, 39, 69, 0.94) 100%),
+		url("/images/pesona/hero.jpg") center / cover no-repeat, #1d4f91;
+	box-shadow: 0 24px 48px rgba(20, 60, 110, 0.3);
 }
 @media (min-width: 640px) {
 	.dash-hero {
@@ -518,24 +523,24 @@ a {
 }
 .dash-hero-btn-solid {
 	background: #fff;
-	color: #1f6f6b !important;
+	color: #1d4f91 !important;
 	border-color: #fff;
 }
 .dash-hero-btn-solid:hover {
-	background: #eefaf6;
+	background: #eaf4ff;
 }
 .dash-panel {
 	padding: 1.25rem;
 	border-radius: 1.1rem;
 	border: 1px solid var(--line);
 	background: linear-gradient(165deg, var(--surface-strong), var(--surface));
-	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 12px 28px rgba(30, 90, 72, 0.08);
+	box-shadow: 0 1px 0 var(--inset-glint) inset, 0 12px 28px rgba(20, 60, 110, 0.08);
 }
 .dash-stat:hover,
 .dash-link:hover {
 	transform: translateY(-3px);
 	border-color: color-mix(in oklab, var(--lagoon-deep) 40%, var(--line));
-	box-shadow: 0 18px 36px rgba(30, 90, 72, 0.14);
+	box-shadow: 0 18px 36px rgba(20, 60, 110, 0.14);
 }
 
 .dash-hero {
@@ -551,5 +556,61 @@ a {
 .dash-water {
 	color: #fff;
 	border: 0;
-	background: linear-gradient(160deg, #2a8f8a, #173a40);
+	background: linear-gradient(160deg, #2f86d6, #0f2745);
+}
+
+/* Pita motif ulos Batak (merah · emas · hitam · putih) di dasar hero */
+.dash-hero::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 7px;
+	z-index: 5;
+	background: repeating-linear-gradient(
+		90deg,
+		#b3262e 0 28px,
+		#e3a935 28px 36px,
+		#14161c 36px 64px,
+		#f5efe6 64px 72px,
+		#14161c 72px 100px,
+		#e3a935 100px 108px
+	);
+}
+
+/* Panel tanpa padding (untuk kartu dengan foto penuh di atas) */
+.dash-panel-flush {
+	padding: 0;
+}
+
+/* Garis aksen di atas kartu fakta */
+.fact-card {
+	position: relative;
+	overflow: hidden;
+}
+.fact-card::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--lagoon), #e3a935);
+}
+
+/* Pembatas kecil bermotif ulos di bawah judul section */
+.ulos-divider {
+	display: block;
+	width: 84px;
+	height: 5px;
+	margin-top: 0.7rem;
+	border-radius: 9999px;
+	background: repeating-linear-gradient(
+		90deg,
+		#b3262e 0 14px,
+		#e3a935 14px 18px,
+		#14161c 18px 32px,
+		#f5efe6 32px 36px,
+		#14161c 36px 50px,
+		#e3a935 50px 54px
+	);
 }

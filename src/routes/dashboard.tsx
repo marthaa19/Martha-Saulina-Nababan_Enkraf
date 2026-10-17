@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import {
+	ArrowDownToLine,
 	ArrowUpRight,
+	Award,
 	Boxes,
 	Landmark,
 	MapPin,
@@ -9,6 +11,7 @@ import {
 	Music,
 	Package,
 	Palette,
+	Ruler,
 	ShieldCheck,
 	Shirt,
 	Users,
@@ -47,11 +50,11 @@ const REGION = {
 	tagline:
 		"Danau vulkanik terbesar di dunia, rumah bagi budaya Batak Toba yang kaya dan ekonomi kreatif yang terus tumbuh.",
 	facts: [
-		{ label: "Provinsi", value: "Sumatera Utara" },
-		{ label: "Panjang danau", value: "± 100 km" },
-		{ label: "Kedalaman maks.", value: "± 500 m" },
-		{ label: "Status", value: "UNESCO Global Geopark" },
-	],
+		{ label: "Provinsi", value: "Sumatera Utara", icon: MapPin },
+		{ label: "Panjang danau", value: "± 100 km", icon: Ruler },
+		{ label: "Kedalaman maks.", value: "± 500 m", icon: ArrowDownToLine },
+		{ label: "Status", value: "UNESCO Global Geopark", icon: Award },
+	] as { label: string; value: string; icon: Icon }[],
 	about: [
 		"Danau Toba terbentuk dari letusan super vulkanik purba dan menjadi danau kaldera terbesar di dunia. Di tengahnya berdiri Pulau Samosir, pulau yang dikelilingi air danau.",
 		"Di sekeliling danau hidup masyarakat Batak Toba dengan adat, musik, arsitektur, dan kerajinan yang masih terjaga — modal besar bagi pengembangan ekonomi kreatif (ekraf) daerah.",
@@ -61,7 +64,7 @@ const REGION = {
 			icon: Mountain,
 			title: "Wisata alam",
 			cover: img("sipiso-piso.jpg"),
-			tone: "teal",
+			tone: "blue",
 			items: [
 				{ name: "Danau Toba", image: img("danau-toba.jpg") },
 				{ name: "Pulau Samosir", image: img("pulau-samosir.jpg") },
@@ -85,7 +88,7 @@ const REGION = {
 			icon: Shirt,
 			title: "Kerajinan",
 			cover: img("kain-ulos.jpg"),
-			tone: "rose",
+			tone: "red",
 			items: [
 				{ name: "Kain Ulos", image: img("kain-ulos.jpg") },
 				{ name: "Ukiran Gorga", image: img("ukiran-gorga.jpg") },
@@ -97,7 +100,7 @@ const REGION = {
 			icon: Utensils,
 			title: "Kuliner khas",
 			cover: img("mi-gomak.jpg"),
-			tone: "green",
+			tone: "orange",
 			items: [
 				{ name: "Arsik ikan mas", image: img("arsik-ikan-mas.jpg") },
 				{ name: "Naniura", image: img("naniura.jpg") },
@@ -115,11 +118,11 @@ const REGION = {
 };
 
 const TONES = {
-	teal: "bg-teal-500/15 text-teal-600 dark:text-teal-300",
-	green: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
-	amber: "bg-amber-500/15 text-amber-600 dark:text-amber-300",
-	rose: "bg-rose-500/15 text-rose-600 dark:text-rose-300",
 	blue: "bg-sky-500/15 text-sky-600 dark:text-sky-300",
+	orange: "bg-orange-500/15 text-orange-600 dark:text-orange-300",
+	amber: "bg-amber-500/15 text-amber-600 dark:text-amber-300",
+	red: "bg-red-500/15 text-red-600 dark:text-red-300",
+	indigo: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-300",
 } as const;
 
 type Highlight = (typeof REGION.highlights)[number];
@@ -167,7 +170,7 @@ function Dashboard() {
 						{REGION.subtitle}
 					</p>
 					<h1 className="display-title mt-3 text-4xl font-bold leading-tight sm:text-6xl">
-						{REGION.greeting} <span className="text-[#bff3e6]">{REGION.name}</span>
+						{REGION.greeting} <span className="text-[#ffd98a]">{REGION.name}</span>
 					</h1>
 					<p className="mt-3 text-sm leading-7 text-white/85 sm:text-base">{REGION.tagline}</p>
 					<div className="mt-6 flex flex-wrap gap-3">
@@ -197,7 +200,7 @@ function Dashboard() {
 					/>
 					<path
 						d="M0 205 Q150 185 300 205 T600 205 T900 205 T1200 205 V220 H0Z"
-						fill="rgba(191,243,230,0.35)"
+						fill="rgba(186,224,255,0.4)"
 					/>
 				</svg>
 				<div className="auth-orb auth-orb-a opacity-60" />
@@ -205,20 +208,26 @@ function Dashboard() {
 
 			{/* ===== Fakta singkat ===== */}
 			<section className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-				{REGION.facts.map((f, i) => (
-					<div
-						key={f.label}
-						className="dash-panel dash-stat rise-in"
-						style={{ animationDelay: `${i * 60}ms` }}
-					>
-						<p className="m-0 text-xs font-bold uppercase tracking-wider text-[var(--kicker)]">
-							{f.label}
-						</p>
-						<p className="m-0 mt-2 text-lg font-extrabold leading-snug text-[var(--sea-ink)] sm:text-xl">
-							{f.value}
-						</p>
-					</div>
-				))}
+				{REGION.facts.map((f, i) => {
+					const FactIcon = f.icon;
+					return (
+						<div
+							key={f.label}
+							className="dash-panel dash-stat fact-card rise-in"
+							style={{ animationDelay: `${i * 60}ms` }}
+						>
+							<span className="grid size-9 place-items-center rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-300">
+								<FactIcon className="size-4.5" />
+							</span>
+							<p className="m-0 mt-3 text-xs font-bold uppercase tracking-wider text-[var(--kicker)]">
+								{f.label}
+							</p>
+							<p className="m-0 mt-1 text-lg font-extrabold leading-snug text-[var(--sea-ink)] sm:text-xl">
+								{f.value}
+							</p>
+						</div>
+					);
+				})}
 			</section>
 
 			{/* ===== Tentang ===== */}
@@ -228,6 +237,7 @@ function Dashboard() {
 					<h2 className="display-title m-0 text-2xl font-bold text-[var(--sea-ink)] sm:text-3xl">
 						Mengenal {REGION.name}
 					</h2>
+					<span className="ulos-divider" />
 					<div className="mt-4 grid gap-3 text-[var(--sea-ink-soft)]">
 						{REGION.about.map((p) => (
 							<p key={p} className="m-0 leading-7">
@@ -259,7 +269,8 @@ function Dashboard() {
 				<h2 className="display-title m-0 text-2xl font-bold text-[var(--sea-ink)] sm:text-3xl">
 					Yang membuat {REGION.name} istimewa
 				</h2>
-				<p className="m-0 mt-1 text-sm text-[var(--sea-ink-soft)]">
+				<span className="ulos-divider" />
+				<p className="m-0 mt-3 text-sm text-[var(--sea-ink-soft)]">
 					Klik salah satu kategori untuk melihat foto-fotonya.
 				</p>
 				<div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -270,10 +281,10 @@ function Dashboard() {
 								type="button"
 								key={h.title}
 								onClick={() => setActive(h)}
-								className="group dash-panel dash-stat dash-link rise-in cursor-pointer overflow-hidden text-left"
+								className="group dash-panel dash-panel-flush dash-stat dash-link rise-in cursor-pointer overflow-hidden text-left"
 								style={{ animationDelay: `${i * 70}ms` }}
 							>
-								<div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-gradient-to-br from-[var(--lagoon)]/30 to-[var(--palm)]/30">
+								<div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[var(--lagoon)]/30 to-[var(--palm)]/30">
 									<img
 										src={h.cover}
 										alt={h.title}
@@ -283,24 +294,29 @@ function Dashboard() {
 											e.currentTarget.style.display = "none";
 										}}
 									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-[#0f2745]/90 via-[#0f2745]/15 to-transparent" />
+									<div className="absolute inset-x-0 bottom-0 flex items-center gap-2.5 p-4">
+										<span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/20 text-white backdrop-blur">
+											<Icon className="size-4.5" />
+										</span>
+										<h3 className="m-0 text-lg font-bold text-white">{h.title}</h3>
+									</div>
 								</div>
-								<div className="mt-4 flex items-center gap-2.5">
-									<span className={`grid size-8 shrink-0 place-items-center rounded-lg ${TONES[h.tone]}`}>
-										<Icon className="size-4" />
+								<div className="p-4">
+									<ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+										{h.items.map((it) => (
+											<li
+												key={it.name}
+												className="rounded-full border border-[var(--line)] bg-[var(--chip-bg)] px-2.5 py-1 text-xs font-medium text-[var(--sea-ink-soft)]"
+											>
+												{it.name}
+											</li>
+										))}
+									</ul>
+									<span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--lagoon-deep)]">
+										Lihat {h.items.length} foto <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 									</span>
-									<h3 className="m-0 text-base font-bold text-[var(--sea-ink)]">{h.title}</h3>
 								</div>
-								<ul className="m-0 mt-3 grid list-none gap-2 p-0 text-sm text-[var(--sea-ink-soft)]">
-									{h.items.map((it) => (
-										<li key={it.name} className="flex items-center gap-2">
-											<span className="size-1.5 shrink-0 rounded-full bg-[var(--lagoon)]" />
-											{it.name}
-										</li>
-									))}
-								</ul>
-								<span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--lagoon-deep)]">
-									Lihat foto <ArrowUpRight className="size-4" />
-								</span>
 							</button>
 						);
 					})}
@@ -380,7 +396,7 @@ function Dashboard() {
 						text="Atur akun dan peran pengguna."
 					/>
 					<div className="dash-panel flex items-start gap-3">
-						<span className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+						<span className="grid size-10 shrink-0 place-items-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-300">
 							<ShieldCheck className="size-5" />
 						</span>
 						<div>
@@ -455,7 +471,7 @@ function PesonaModal({ highlight, onClose }: { highlight: Highlight; onClose: ()
 				aria-modal="true"
 				aria-label={highlight.title}
 				onClick={(e) => e.stopPropagation()}
-				className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-[var(--line)] bg-[var(--surface-strong)] p-5 shadow-2xl sm:p-6"
+				className="rise-in max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-[var(--line)] bg-[var(--surface-strong)] p-5 shadow-2xl sm:p-6"
 			>
 				<div className="mb-5 flex items-center justify-between gap-3">
 					<div className="flex items-center gap-3">
@@ -476,21 +492,24 @@ function PesonaModal({ highlight, onClose }: { highlight: Highlight; onClose: ()
 
 				<div className="grid gap-4 sm:grid-cols-2">
 					{highlight.items.map((it) => (
-						<figure key={it.name} className="m-0 overflow-hidden rounded-xl border border-[var(--line)]">
+						<figure
+							key={it.name}
+							className="group m-0 overflow-hidden rounded-xl border border-[var(--line)] shadow-sm"
+						>
 							<div className="relative aspect-[4/3] bg-gradient-to-br from-[var(--lagoon)]/30 to-[var(--palm)]/30">
 								<img
 									src={it.image}
 									alt={it.name}
 									loading="lazy"
-									className="absolute inset-0 size-full object-cover"
+									className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
 									onError={(e) => {
 										e.currentTarget.style.display = "none";
 									}}
 								/>
+								<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0f2745]/85 to-transparent px-4 pb-3 pt-12">
+									<p className="m-0 text-sm font-bold text-white">{it.name}</p>
+								</div>
 							</div>
-							<figcaption className="px-3.5 py-3 text-sm font-semibold text-[var(--sea-ink)]">
-								{it.name}
-							</figcaption>
 						</figure>
 					))}
 				</div>

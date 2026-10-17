@@ -20,7 +20,7 @@ function Setup() {
 			setMessage(
 				result.alreadySeeded
 					? "Admin account already exists."
-					: "Admin account seeded. Sign in at /demo/better-auth with admin@example.com / admin12345",
+					: "Admin account seeded. Silakan masuk di /demo/better-auth dengan admin@example.com / admin12345",
 			);
 		} catch (err) {
 			setStatus("error");

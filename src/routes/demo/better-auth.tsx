@@ -57,9 +57,11 @@ function AuthPage() {
 			if (isSignUp) {
 				const result = await authClient.signUp.email({ email, password, name });
 				if (result.error) setError(result.error.message || "Pendaftaran gagal");
+				else window.location.assign("/dashboard");
 			} else {
 				const result = await authClient.signIn.email({ email, password });
 				if (result.error) setError(result.error.message || "Email atau password salah");
+				else window.location.assign("/dashboard");
 			}
 		} catch {
 			setError("Terjadi kesalahan. Silakan coba lagi.");
@@ -263,6 +265,29 @@ function AuthPage() {
 							)}
 						</button>
 					</form>
+
+					{!isSignUp && (
+						<div className="mt-5 rounded-xl border border-dashed border-[var(--chip-line)] bg-[var(--chip-bg)] p-3 text-xs leading-5 text-[var(--sea-ink-soft)]">
+							<p className="m-0 font-semibold text-[var(--sea-ink)]">Akun admin contoh</p>
+							<p className="m-0">
+								admin@example.com / admin12345 — buat dulu lewat{" "}
+								<a href="/setup" className="font-semibold underline underline-offset-2">
+									halaman setup
+								</a>
+								.
+							</p>
+							<button
+								type="button"
+								onClick={() => {
+									setEmail("admin@example.com");
+									setPassword("admin12345");
+								}}
+								className="mt-1.5 font-semibold text-[var(--lagoon-deep)] hover:underline"
+							>
+								Isi otomatis
+							</button>
+						</div>
+					)}
 
 					<p className="mt-6 text-center text-sm text-[var(--sea-ink-soft)]">
 						{isSignUp ? "Sudah punya akun?" : "Belum punya akun?"}{" "}

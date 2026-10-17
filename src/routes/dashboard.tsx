@@ -14,7 +14,9 @@ import {
 	Users,
 	Utensils,
 	Waves,
+	X,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { authClient } from "#/lib/auth-client";
 import { getServerSession } from "@/lib/server/auth";
@@ -35,6 +37,8 @@ export const Route = createFileRoute("/dashboard")({
  * KONTEN WILAYAH — ganti isi objek ini untuk memperkenalkan wilayah lain.
  * ========================================================================== */
 type Icon = React.ComponentType<{ className?: string }>;
+type Spot = { name: string; image: string };
+const img = (file: string) => `/images/pesona/${file}`;
 
 const REGION = {
 	name: "Danau Toba",
@@ -56,28 +60,52 @@ const REGION = {
 		{
 			icon: Mountain,
 			title: "Wisata alam",
+			cover: img("sipiso-piso.jpg"),
 			tone: "teal",
-			items: ["Danau Toba", "Pulau Samosir", "Air Terjun Sipiso-piso", "Bukit Holbung"],
+			items: [
+				{ name: "Danau Toba", image: img("danau-toba.jpg") },
+				{ name: "Pulau Samosir", image: img("pulau-samosir.jpg") },
+				{ name: "Air Terjun Sipiso-piso", image: img("sipiso-piso.jpg") },
+				{ name: "Bukit Holbung", image: img("bukit-holbung.jpg") },
+			],
 		},
 		{
 			icon: Landmark,
 			title: "Budaya & adat",
+			cover: img("huta-siallagan.jpg"),
 			tone: "amber",
-			items: ["Rumah Bolon", "Tor-tor", "Gondang Sabangunan", "Huta Siallagan"],
+			items: [
+				{ name: "Rumah Bolon", image: img("rumah-bolon.jpg") },
+				{ name: "Tor-tor", image: img("tor-tor.jpg") },
+				{ name: "Gondang Sabangunan", image: img("gondang-sabangunan.jpg") },
+				{ name: "Huta Siallagan", image: img("huta-siallagan.jpg") },
+			],
 		},
 		{
 			icon: Shirt,
 			title: "Kerajinan",
+			cover: img("kain-ulos.jpg"),
 			tone: "rose",
-			items: ["Kain Ulos", "Ukiran Gorga", "Patung Sigale-gale", "Perhiasan perak"],
+			items: [
+				{ name: "Kain Ulos", image: img("kain-ulos.jpg") },
+				{ name: "Ukiran Gorga", image: img("ukiran-gorga.jpg") },
+				{ name: "Patung Sigale-gale", image: img("sigale-gale.jpg") },
+				{ name: "Perhiasan perak", image: img("perhiasan-perak.jpg") },
+			],
 		},
 		{
 			icon: Utensils,
 			title: "Kuliner khas",
+			cover: img("mi-gomak.jpg"),
 			tone: "green",
-			items: ["Arsik ikan mas", "Naniura", "Mi Gomak", "Kopi Sumatera"],
+			items: [
+				{ name: "Arsik ikan mas", image: img("arsik-ikan-mas.jpg") },
+				{ name: "Naniura", image: img("naniura.jpg") },
+				{ name: "Mi Gomak", image: img("mi-gomak.jpg") },
+				{ name: "Kopi Sumatera", image: img("kopi-sumatera.jpg") },
+			],
 		},
-	] as { icon: Icon; title: string; tone: keyof typeof TONES; items: string[] }[],
+	] as { icon: Icon; title: string; tone: keyof typeof TONES; cover: string; items: Spot[] }[],
 	ekraf: [
 		{ icon: Palette, text: "Kriya & seni rupa" },
 		{ icon: Music, text: "Musik & seni pertunjukan" },
@@ -94,6 +122,8 @@ const TONES = {
 	blue: "bg-sky-500/15 text-sky-600 dark:text-sky-300",
 } as const;
 
+type Highlight = (typeof REGION.highlights)[number];
+
 const money = (n: number) =>
 	new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
@@ -107,6 +137,7 @@ function greeting() {
 
 function Dashboard() {
 	const { data: session } = authClient.useSession();
+	const [active, setActive] = useState<Highlight | null>(null);
 	const productsQuery = useQuery({
 		queryKey: ["dashboard", "products"],
 		queryFn: async () => getProducts(),
@@ -228,28 +259,54 @@ function Dashboard() {
 				<h2 className="display-title m-0 text-2xl font-bold text-[var(--sea-ink)] sm:text-3xl">
 					Yang membuat {REGION.name} istimewa
 				</h2>
+				<p className="m-0 mt-1 text-sm text-[var(--sea-ink-soft)]">
+					Klik salah satu kategori untuk melihat foto-fotonya.
+				</p>
 				<div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-					{REGION.highlights.map(({ icon: Icon, title, tone, items }, i) => (
-						<div
-							key={title}
-							className="dash-panel dash-stat rise-in"
-							style={{ animationDelay: `${i * 70}ms` }}
-						>
-							<span className={`grid size-11 place-items-center rounded-xl ${TONES[tone]}`}>
-								<Icon className="size-5" />
-							</span>
-							<h3 className="m-0 mt-4 text-base font-bold text-[var(--sea-ink)]">{title}</h3>
-							<ul className="m-0 mt-3 grid list-none gap-2 p-0 text-sm text-[var(--sea-ink-soft)]">
-								{items.map((it) => (
-									<li key={it} className="flex items-center gap-2">
-										<span className="size-1.5 shrink-0 rounded-full bg-[var(--lagoon)]" />
-										{it}
-									</li>
-								))}
-							</ul>
-						</div>
-					))}
+					{REGION.highlights.map((h, i) => {
+						const Icon = h.icon;
+						return (
+							<button
+								type="button"
+								key={h.title}
+								onClick={() => setActive(h)}
+								className="group dash-panel dash-stat dash-link rise-in cursor-pointer overflow-hidden text-left"
+								style={{ animationDelay: `${i * 70}ms` }}
+							>
+								<div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-gradient-to-br from-[var(--lagoon)]/30 to-[var(--palm)]/30">
+									<img
+										src={h.cover}
+										alt={h.title}
+										loading="lazy"
+										className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
+										onError={(e) => {
+											e.currentTarget.style.display = "none";
+										}}
+									/>
+								</div>
+								<div className="mt-4 flex items-center gap-2.5">
+									<span className={`grid size-8 shrink-0 place-items-center rounded-lg ${TONES[h.tone]}`}>
+										<Icon className="size-4" />
+									</span>
+									<h3 className="m-0 text-base font-bold text-[var(--sea-ink)]">{h.title}</h3>
+								</div>
+								<ul className="m-0 mt-3 grid list-none gap-2 p-0 text-sm text-[var(--sea-ink-soft)]">
+									{h.items.map((it) => (
+										<li key={it.name} className="flex items-center gap-2">
+											<span className="size-1.5 shrink-0 rounded-full bg-[var(--lagoon)]" />
+											{it.name}
+										</li>
+									))}
+								</ul>
+								<span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--lagoon-deep)]">
+									Lihat foto <ArrowUpRight className="size-4" />
+								</span>
+							</button>
+						);
+					})}
 				</div>
+
+				{active && <PesonaModal highlight={active} onClose={() => setActive(null)} />}
 			</section>
 
 			{/* ===== Ekraf: data nyata dari aplikasi ===== */}
@@ -368,5 +425,76 @@ function QuickLink({
 			</div>
 			<ArrowUpRight className="size-4 text-[var(--sea-ink-soft)] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 		</Link>
+	);
+}
+
+function PesonaModal({ highlight, onClose }: { highlight: Highlight; onClose: () => void }) {
+	const Icon = highlight.icon;
+
+	// Tutup dengan tombol Esc & kunci scroll halaman saat popup terbuka.
+	useEffect(() => {
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === "Escape") onClose();
+		};
+		window.addEventListener("keydown", onKey);
+		document.body.style.overflow = "hidden";
+		return () => {
+			window.removeEventListener("keydown", onKey);
+			document.body.style.overflow = "";
+		};
+	}, [onClose]);
+
+	return (
+		<div
+			className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4 backdrop-blur-sm"
+			onClick={onClose}
+			role="presentation"
+		>
+			<div
+				role="dialog"
+				aria-modal="true"
+				aria-label={highlight.title}
+				onClick={(e) => e.stopPropagation()}
+				className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-[var(--line)] bg-[var(--surface-strong)] p-5 shadow-2xl sm:p-6"
+			>
+				<div className="mb-5 flex items-center justify-between gap-3">
+					<div className="flex items-center gap-3">
+						<span className={`grid size-10 place-items-center rounded-xl ${TONES[highlight.tone]}`}>
+							<Icon className="size-5" />
+						</span>
+						<h3 className="m-0 text-xl font-bold text-[var(--sea-ink)]">{highlight.title}</h3>
+					</div>
+					<button
+						type="button"
+						onClick={onClose}
+						aria-label="Tutup"
+						className="grid size-9 cursor-pointer place-items-center rounded-lg border border-[var(--line)] bg-[var(--chip-bg)] text-[var(--sea-ink)] hover:bg-[var(--link-bg-hover)]"
+					>
+						<X className="size-4" />
+					</button>
+				</div>
+
+				<div className="grid gap-4 sm:grid-cols-2">
+					{highlight.items.map((it) => (
+						<figure key={it.name} className="m-0 overflow-hidden rounded-xl border border-[var(--line)]">
+							<div className="relative aspect-[4/3] bg-gradient-to-br from-[var(--lagoon)]/30 to-[var(--palm)]/30">
+								<img
+									src={it.image}
+									alt={it.name}
+									loading="lazy"
+									className="absolute inset-0 size-full object-cover"
+									onError={(e) => {
+										e.currentTarget.style.display = "none";
+									}}
+								/>
+							</div>
+							<figcaption className="px-3.5 py-3 text-sm font-semibold text-[var(--sea-ink)]">
+								{it.name}
+							</figcaption>
+						</figure>
+					))}
+				</div>
+			</div>
+		</div>
 	);
 }
